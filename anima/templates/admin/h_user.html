@@ -1,0 +1,99 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+
+<div class="content" >
+
+    <section class="content-header">
+        <h1>
+            所有咨询师信息
+{#            <small>展示</small>#}
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+            <li class="active">Here</li>
+        </ol>
+    </section>
+
+<section class="content container-fluid">
+    <div class="row" class="float-left">
+        <div class="col-xs-12">
+            <div class="box">
+
+                <form action="condition" style="width:400px;display:inline-block">
+                    <select name="condition" id="" class="form-control" style="width:100px;display:inline-block">
+                    <option value="username__contains">姓名</option>
+                    <option value="telephone__contains">电话</option>
+                    </select>
+                    <input type="text" name="wd" style="width: 200px;height:35px;display: inline-block">
+                    <button class="btn btn-default">搜索</button>
+                </form>
+                <a href="" class="btn btn-success pull-right">添加</a>
+
+    <form action="" method="post">
+
+<div class="box-body">
+
+<table class="table table-bordered table-hover">
+    <thead>
+    <!-- On rows -->
+        <tr class="active">
+            <th>
+                <input type="checkbox" id="choose">
+            </th>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>电话</th>
+            <th>邮箱</th>
+            <th>加入时间</th>
+            <th>上次登录时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <!-- On cells (`td` or `th`) -->
+
+    {% for user in all_user %}
+
+    <tr>
+    <td class="info">
+    <input type="checkbox" name="selected_id" value="{{ user.pk }}">
+    </td>
+    <td class="info">{{ forloop.counter }}</td>
+    <td class="info">{{ user.username }}</td>
+    <td class="info">{{ user.telephone }}</td>
+    <td class="info">{{ user.email }}</td>
+    <td class="info">{{ user.date_joined }}</td>
+    <td class="info">{{ user.last_login }}</td>
+    <td class="info">正常</td>
+    <td class="info">
+        <a href="">编辑</a>
+        <a href="">删除</a>
+    </td>
+    </tr>
+    {% endfor %}
+
+
+</table>
+{# end row #}
+</div>
+</form>
+</div>
+</div>
+</div>
+{# end contend  #}
+</section>
+</div>
+
+{{ ret_html|safe }}
+{% endblock %}
+
+
+
+{% block js %}
+    <script>
+        $('#choose').click(function(){
+            var status = $(this).prop('checked');
+            $('[name=selected_id]').prop('checked',status);
+    })
+    </script>
+{% endblock %}
